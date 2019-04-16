@@ -1,0 +1,47 @@
+.notesCont.row
+    each item in note= notes.reverse()
+
+        if item.type == 'note'
+            .note.mini.col-sm-12.col-md-4.col-lg-3(data-type=`${item.type}` data-id=`${item['_id']}`)
+                .header(contenteditable="true" placeholder="Enter note header" role="textbox")= item.header
+                .noteText(contenteditable="true" placeholder="Add quick note..." role="textbox")= item.noteText
+
+                .controls.flex-row.d-flex.justify-content-between.align-items-center
+                    .toolbar
+                        .toolbarBtn.setTime.btn(aria-label='time')
+                        .toolbarBtn.delete.btn(aria-label='delete')
+                    .defaultBtn.edit.btn.btn-primary Edit
+
+
+        if item.type == 'list'
+            .note.mini.col-sm-12.col-md-4.col-lg-3(data-type=`${item.type}` data-id=`${item['_id']}`)
+                .header(contenteditable="true" placeholder="Enter note header" role="textbox")= item.header
+                .listCont
+
+                    each list in item.list.normal
+                        .listEl
+                            .checkEl(aria-checked='false')
+                            .textEl(contenteditable="true" role="textbox" aria-label="listText")= list
+                            .delEl
+
+                    each list in item.list.checked
+                        .listEl
+                            .checkEl(aria-checked='true')
+                            .textEl(contenteditable="true" role="textbox" aria-label="listText")= list
+                            .delEl
+
+                    .listEl(role='createListEl')
+                        .checkEl
+                        .textEl(contenteditable="true" placeholder="New TODO" role="textbox" aria-label="newTodo")
+                        .delEl
+                        
+                .controls.flex-row.d-flex.justify-content-between.align-items-center
+                    .toolbar
+                        .toolbarBtn.setTime.btn(aria-label='time')
+                        .toolbarBtn.delete.btn(aria-label='delete')
+                    .defaultBtn.edit.btn.btn-primary Edit
+
+                    
+    else
+        .no-note
+            .phrase There is gonna be your notes.
